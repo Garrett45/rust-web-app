@@ -1,0 +1,15 @@
+{% extends "base" %} {% block content %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Item</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task.id }}</td>
+        <td>{{ task.item }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}

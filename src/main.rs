@@ -3,9 +3,10 @@
 mod pool;
 
 
-use migration::MigratorTrait;
+use migration::{MigratorTrait, tests_cfg::json};
 use pool::Db;
 use rocket::{fairing::{AdHoc, self}, Rocket, Build, form::Form, serde::json::Json, http::Status, response::{Responder, self}, Request};
+use rocket_dyn_templates::Template;
 use sea_orm::{ActiveModelTrait, Set, EntityTrait, QueryOrder, DeleteResult};
 use sea_orm_rocket::{Database, Connection};
 
@@ -74,8 +75,19 @@ async fn delete_task(conn: Connection<'_, Db>, id: i32) -> Result<String, Databa
 }
 
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+async fn index(conn: Connection<'_, Db>) -> Result<Template, DatabaseError> {
+    let db = conn.into_inner();
+    let tasks = Tasks::find()
+                            .order_by_asc(tasks::Column::Id)
+                            .all(db)
+                            .await?;
+    
+    Ok(Template::render(
+        "todo_list",
+        json!({
+            "tasks": tasks
+        })
+    ))
 }
 
 async fn run_migrations(rocket: Rocket<Build>) -> fairing::Result {
@@ -90,4 +102,5 @@ fn rocket() -> _ {
         .attach(Db::init())
         .attach(AdHoc::try_on_ignite("Migrations", run_migrations))
         .mount("/", routes![index, add_task, read_tasks, edit_task, delete_task])
+        .attach(Template::fairing())
 }

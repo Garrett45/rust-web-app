@@ -8,7 +8,7 @@ table {
     letter-spacing: 1px;
     font-size: 0.8rem;
     width:100%;
-    margin-bottom: 2rem;
+    
 }
 
 td, th {
@@ -110,4 +110,13 @@ label {
 
 .back-button {
     margin-bottom: 4rem;
+}
+
+.page-row {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+.page-selector {
+    padding: 1rem 1rem;
 }

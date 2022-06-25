@@ -34,6 +34,27 @@
     </tr>
     {% endfor %}
 </table>
+<div class="page-row">
+    {% if current_page == 0 %}
+        {% set start_page = current_page + 1 %}
+    {% else %}
+        {% set start_page = current_page %}
+    {% endif %}
+
+    {% if start_page + 3 > number_of_pages %}
+        {% set end_page = number_of_pages + 1 %}
+    {% else %}
+        {% set end_page = start_page + 3 %}
+    {% endif %}
+
+    {% for i in range(start = start_page, end = end_page) %}
+        <a href="/?page={{ i - 1 }}" class="page-selector">{{ i }}<a>
+    {% endfor %}
+    
+    {% if end_page <= number_of_pages %}
+        <a>...</a>
+    {% endif %}
+</div>
 <form action="/addtask" method="post">
     <div class="add_task_form">
         <input type="text" name="item" placeholder="Enter a new task here..." />

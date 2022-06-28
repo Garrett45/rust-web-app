@@ -1,3 +1,7 @@
+# A Quick Note Before We Start
+
+Obviously, this markdown file is attached to a repository. If you look at the commit history of the repository, you'll notice that the commits are split up into the steps I take throughout this article. So, if you have a hard time understanding what you are supposed to be editing or how at any point during this article, you can just look at how I did it in the repository. Otherwise, you can just clone the repository and look at how the project changes over time. You don't necessarily have to write it yourself.
+
 # Goal
 
 Frameworks are powerful and useful tools. They abstract away a lot of the painful details that go into creating a web application. Theoretically, this means that new developers can be helpful to development quicker, and older developers can be even more efficient, as they don't have to dredge through tedious, lower-level details.
@@ -795,15 +799,14 @@ If you are having trouble installing or using postgres on Windows, you can check
 Now, let's use our newly installed database! Run `psql`, which is the SQL Shell you installed to use postgres. Log into your database with the following information:
 
 - Server: `localhost`
-  
+
 - Database: `postgres`
-  
+
 - Port: `5432`
-  
+
 - Username: `postgres`
-  
+
 - Password: `password`
-  
 
 This will connect you to the postgres database. Now, we're going to use this connection to create a new database to test out the CRUD operations available to us. Simply run the following command:
 
@@ -2890,7 +2893,7 @@ async fn verify_account(conn: Connection<'_, Db>, cookies: & CookieJar<'_>, user
                 return login_error();
             }
         };
-    
+
     let is_password_correct = match argon2::verify_encoded(&stored_user.password, user.password.as_bytes()) {
         Ok(result) => result,
         Err(_) => {
@@ -3057,7 +3060,6 @@ impl Related<super::users::Entity> for Entity {
 }
 
 impl ActiveModelBehavior for ActiveModel {}
-
 ```
 
 Finally, go to your `users` entity and make sure it looks like the following
@@ -3099,7 +3101,6 @@ impl Related<super::tasks::Entity> for Entity {
 pub const USER_PASSWORD_SALT: &[u8] = b"some_random_salt";
 
 impl ActiveModelBehavior for ActiveModel {}
-
 ```
 
 With that sorted out, we can go back to `main.rs` and modify our CRUD operations.
@@ -3197,8 +3198,8 @@ async fn index(conn: Connection<'_, Db>, flash: Option<FlashMessage<'_>>, page: 
                             .paginate(db, tasks_per_page);
     let number_of_pages = paginator.num_pages().await?;
     let tasks = paginator.fetch_page(page).await?;
-    
-    
+
+
     Ok(Template::render(
         "todo_list",
         json!({
@@ -3232,7 +3233,6 @@ async fn edit_task_page(conn: Connection<'_, Db>, id: i32, _user: AuthenticatedU
 async fn edit_task_page_redirect(id: i32) -> Redirect {
     redirect_to_login()
 }
-
 ```
 
 Of course, make sure all the routes are added to the `rocket` function.

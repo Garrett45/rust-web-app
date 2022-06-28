@@ -51,10 +51,7 @@ async fn add_task(conn: Connection<'_, Db>, task_form: Form<tasks::Model>, user:
 
     match active_task.insert(db).await {
         Ok(result) => result,
-        Err(err) => {
-            println!("{}", err);
-            return Flash::error(Redirect::to("/"), "Issue creating the task");
-        }
+        Err(err) => return Flash::error(Redirect::to("/"), "Issue creating the task")
     };
 
     Flash::success(Redirect::to("/"), "Task created!")

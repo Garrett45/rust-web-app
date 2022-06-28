@@ -3263,6 +3263,10 @@ async fn logout(cookies: & CookieJar<'_>) -> Flash<Redirect> {
 
 With that, you should now be able to use multiple users in the app, and that concludes everything this beheamoth of a piece covers.
 
+# Quick Clean Up
+
+Now, this is the end of any of the coding. You'll notice, however, that the final code base is a bit different than where the project leaves off. That's because I did some minimal code clean up by packaging the different routes into different modules. The organization I used makes sense for this project, but, obviously at a larger scale, you may split business logic and routes more clearly, and will have a lot more structure to make it easier to grok through the large code base.
+
 # Final Thoughts on Rocket
 
 This was quite the journey to implement a basic `todo` app. If I had just stuck to not using the ORM, this probably would've been easier. Something like Sea ORM is useful when you have a lot of tables and data, but it's not really worth it for something as small as this. I would've had a much easier time just sticking with the database driver and writing out the queries myself. Over-engineering a solution can often make the solution harder to use, and leave the people left with your work very annoyed.

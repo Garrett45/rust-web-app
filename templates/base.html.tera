@@ -7,7 +7,6 @@
     <meta name="author" content="Garrett Udstrand" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/container.css" />
-    <link rel="stylesheet" href="/todo_list.css" />
   </head>
   <body>  
     <div class="container">

@@ -3,3 +3,17 @@
     margin: auto;
     padding-top: 2rem;
 }
+
+* {
+    box-sizing: border-box;
+}
+
+.error-flash {
+    margin: -10px 0 10px 0;
+    color: red;
+}
+
+.success-flash {
+    margin: -10px 0 10px 0;
+    color: green;
+}
